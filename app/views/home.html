@@ -1,0 +1,39 @@
+<div class="error-page">
+        <form class="search-form" ng-submit="search.submit()">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" ng-change="search.queryChanged()" ng-model="search.query" placeholder="Search">
+
+                <div class="input-group-btn">
+                    <button type="submit" name="submit" class="btn btn-warning btn-flat"><i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Simple Full Width Table</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>User</th>
+                    <th>Followers</th>
+                </tr>
+                <tr ng-repeat="item in search.result">
+                    <td><div class="pull-left image"><img src="{{item.avatar_url}}" class="img-circle table-image" alt="User Image"><br>{{item.login}}</div>
+                        </td>
+                    <td>
+                        <ul ng-show="item.followers != null && item.followers.length > 0">
+                            <li ng-repeat="follower in item.followers">{{follower.login}}</li>
+                        </ul>
+                        <div ng-hide="item.followers != null && item.followers.length > 0">No Followers</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
