@@ -3,7 +3,7 @@ Pablo Weremczuk' AngularJS Demo
 
 This is a demo made for show some AngularJS skills of mine. Since most of the work I had made for companies arroud the world are under NDA's, I decided to create this demo in order to have some code to show.
 
-I don't write everithing from scratch, I rely a lot on the work of other people. This is just to show you that I can create an application that can do stuff. We can talk about this if my skills catch your atention.
+I don't wrote everything from scratch, I rely a lot on the work of other people. This is just to show you that I can create an application that can do stuff. We can talk about this if my skills catch your atention.
 
 If you thinkg that you don' fully understand this code, don't worry, I can explain it to you if you want to talk with me. We can talk over skype, hangouts or we can share a beer, whatever rock your boat. 
 
