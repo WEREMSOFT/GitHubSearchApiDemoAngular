@@ -10,15 +10,17 @@ function SearchCtrl($scope, $http) {
   var delayedCall = null;
   var delayedCallFollowers = null;
   var callCache = [];
+  var CACHE_TIMEOUT = 60000; //cache expires after 1 minute
   vm.submit = function(){
+      vm.loading = true;
       $http({
           method: 'GET',
           url: '/api/search/users?q=' + vm.query
       }).then(function successCallback(response) {
         vm.result = response.data.items;
         clearInterval(delayedCallFollowers);
+        vm.loading = false;
         delayedCallFollowers = setTimeout(vm.getFollowers, 1000);
-        console.log(vm.result);
       }, function errorCallback(response) {
         console.error(response);
       });
@@ -38,9 +40,12 @@ function SearchCtrl($scope, $http) {
   };
   // Get followers implents both. Cache in the frontend and in the backend
   vm.getFollowersForUSer = function(user){
-      if(callCache[user.followers_url] != null)
+      if(callCache[user.followers_url] != null
+          && (callCache[user.followers_url].timeStamp - Date.now()) < CACHE_TIMEOUT
+      )
       {
-          user.followers = callCache[user.followers_url];
+          console.log('cached');
+          user.followers = callCache[user.followers_url].data;
           // Needed because angular can't tell if a variable was updated. We trigger the digest loop mannually.
           $scope.$apply();
           return;
@@ -50,7 +55,8 @@ function SearchCtrl($scope, $http) {
           method: 'GET',
           url: '/api/users/' + user.login + '/followers'
       }).then(function successCallback(response) {
-          callCache[user.followers_url] = response.data;
+          console.log('not cached');
+          callCache[user.followers_url] = {timeStamp: Date.now(), data: response.data};
           user.followers = response.data;
       }, function errorCallback(response) {
           console.error(response);

@@ -1,4 +1,4 @@
-describe('Unit: ExampleCtrl', function() {
+describe('Unit: SearchCtrl', function() {
 
   let ctrl;
 
@@ -7,7 +7,7 @@ describe('Unit: ExampleCtrl', function() {
     angular.mock.module('app');
 
     angular.mock.inject(($controller) => {
-      ctrl = $controller('ExampleCtrl');
+      ctrl = $controller('SearchCtrl');
     });
   });
 

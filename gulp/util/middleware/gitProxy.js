@@ -6,19 +6,25 @@ import url         from 'url';
 import https       from 'https';
 
 
-
+var callCache = [];
+var CACHE_TIMEOUT = 120000; //Cache expires every 2 minutes;
 export default function(client_req, client_res, next) {
-    var callCache = [];
+    var currentTimeStamp = Date.now();
     let fileHref = url.parse(client_req.url).href;
     if(fileHref.indexOf('/api/') == 0){
-        if(callCache[fileHref] == null){
+        var cacheIsNull = callCache[fileHref] == null;
+        if( cacheIsNull ||
+            (callCache[fileHref].timeStamp - currentTimeStamp) > CACHE_TIMEOUT
+            )
+        {
+            console.log('not cached');
             var options = {
                 hostname: 'api.github.com' ,
                 path: '/' + fileHref.split('/api/')[1],
                 port: 443,
                 method: 'GET',
                 headers: {'user-agent':'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)',
-                    'Authorization': 'token TOTALLY_FALE_TOKEN'}//You must put your own oauth token here.
+                    'Authorization': 'token TOTALLY_FAKE_TOKEN'}//You must put your own oauth token here.
             };
 
             var proxy = https.request(options, function (res) {
@@ -28,7 +34,7 @@ export default function(client_req, client_res, next) {
                 });
 
                 res.on('end', (e)=>{
-                   callCache[fileHref] = rawData;
+                   callCache[fileHref] = {timeStamp: Date.now(), data: rawData};
                 });
 
 
@@ -41,7 +47,7 @@ export default function(client_req, client_res, next) {
             });
         }else{
             console.log('call cached');
-            client_res.write(callCache[fileHref]);
+            client_res.write(callCache[fileHref].data);
             client_res.end();
         }
 

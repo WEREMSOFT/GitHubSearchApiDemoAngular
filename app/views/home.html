@@ -11,7 +11,7 @@
         </form>
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Simple Full Width Table</h3>
+            <h3 class="box-title">Search Result</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body no-padding">
@@ -21,14 +21,21 @@
                     <th>User</th>
                     <th>Followers</th>
                 </tr>
-                <tr ng-repeat="item in search.result">
+                <tr ng-show="search.loading">
+                    <td colspan="2" align="center">
+                        <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                    </td>
+                </tr>
+
+                <tr ng-hide="search.loading" ng-repeat="item in search.result">
                     <td><div class="pull-left image"><img src="{{item.avatar_url}}" class="img-circle table-image" alt="User Image"><br>{{item.login}}</div>
                         </td>
                     <td>
-                        <ul ng-show="item.followers != null && item.followers.length > 0">
+                        <i ng-show="item.followers == null" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                        <ul ng-show="item.followers != null && item.followers.length > 0 && !search.loadingFollowers">
                             <li ng-repeat="follower in item.followers">{{follower.login}}</li>
                         </ul>
-                        <div ng-hide="item.followers != null && item.followers.length > 0">No Followers</div>
+                        <div ng-hide="item.followers == null || item.followers.length > 0">No Followers</div>
                     </td>
                 </tr>
                 </tbody>
