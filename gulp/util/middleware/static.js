@@ -13,8 +13,6 @@ export default function(req, res, next) {
     if ( !ASSET_EXTENSION_REGEX.test(fileHref) ) {
         req.url = '/' + DEFAULT_FILE;
     }
-    console.log('cock cock!');
-
     return next();
 };
 

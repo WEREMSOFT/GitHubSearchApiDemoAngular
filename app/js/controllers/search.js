@@ -1,4 +1,4 @@
-function SearchCtrl($http) {
+function SearchCtrl($scope, $http) {
   'ngInject';
   // ViewModel
   const vm = this;
@@ -17,7 +17,7 @@ function SearchCtrl($http) {
       }).then(function successCallback(response) {
         vm.result = response.data.items;
         clearInterval(delayedCallFollowers);
-        delayedCallFollowers = setTimeout(vm.getFollowers, 3000);
+        delayedCallFollowers = setTimeout(vm.getFollowers, 1000);
         console.log(vm.result);
       }, function errorCallback(response) {
         console.error(response);
@@ -36,24 +36,24 @@ function SearchCtrl($http) {
           vm.getFollowersForUSer(user);
       }
   };
-
+  // Get followers implents both. Cache in the frontend and in the backend
   vm.getFollowersForUSer = function(user){
       if(callCache[user.followers_url] != null)
       {
           user.followers = callCache[user.followers_url];
+          // Needed because angular can't tell if a variable was updated. We trigger the digest loop mannually.
+          $scope.$apply();
           return;
       }
 
       $http({
           method: 'GET',
-          url: user.followers_url
+          url: '/api/users/' + user.login + '/followers'
       }).then(function successCallback(response) {
           callCache[user.followers_url] = response.data;
           user.followers = response.data;
-          console.log(response);
       }, function errorCallback(response) {
-          console.log(response);
-          console.log(user.login);
+          console.error(response);
       });
   };
 }
