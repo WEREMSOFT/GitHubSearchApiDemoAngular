@@ -1,17 +1,17 @@
 Pablo Weremczuk' AngularJS Demo
 =====================================
 
-This is a demo made for show some AngularJS skills of mine. Since most of the work I had made for companies arroud the world are under NDA's, I decided to create this demo in order to have some code to show.
+This is a demo made for show some of my AngularJS and NodeJS skills. Since most of the work I have done is under NDA's, I decided to create this app in order to have some code to show.
 
-I don't wrote everything from scratch, I rely a lot on the work of other people. This is just to show you that I can create an application that can do stuff. We can talk about this if my skills catch your atention.
+I didn't wrote everything from scratch, I rely a lot on the work of other people. This is just to show you that I can create an application that can do stuff. We can talk about this if my skills catch your atention.
 
-If you thinkg that you don' fully understand this code, don't worry, I can explain it to you if you want to talk with me. We can talk over skype, hangouts or we can share a beer, whatever rock your boat. 
+If you thinkg that you don' fully understand this code, don't worry, I can explain it to you if you want to talk with me. We can talk over skype, hangouts or we can share a beer. 
 
 You can contact me using [LinkedIn](https://www.linkedin.com/in/pabloweremczuk)
 
-It has some common features asked for technical tests, which are load some JSON from internet and implement some kind of mechanism to avoid being banned for service abuse(like hit several times an endpoint within the same second).
+The demo has some common features asked for technical tests, which are: load some JSON from internet and implement some kind of mechanism to avoid being banned for service abuse(like hit several times an endpoint within the same second).
  
- So, this demo has the following:
+This is a list of features that you can find on it:
  
  1. Uses AngularJS and NodeJS/Express
  2. It' uses a responsive HTML, which adapts to several screen resolutions(mobile first).
@@ -56,4 +56,4 @@ The AngularJS files are all located within `/app/js`.
 
 Controllers, services, directives, etc. should all be placed within their respective folders, and will be automatically required and mounted via their respective `index.js` using `bulk-require`.
  
- I'm not 100% hapy with this aproach, I have plans to change it in the future for something more "feature based organization"
+ I'm not 100% happy with this aproach. I have plans to change it in the future for something more "feature based organization"
